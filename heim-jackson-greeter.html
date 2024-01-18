@@ -25,11 +25,12 @@
   <script>
     "use strict";
 
-    // 1 - get a reference to the button
-    let thisButton = document.getElementById("button");
-
-    // 2 - add a click event to button that calls a `sayHello` function
-    thisButton.addEventListener("click", sayHello);
+    window.onload = function () {
+      // 1 - get a reference to the button
+      const button = document.getElementById("button");
+      // 2 - add a click event to button that calls a `sayHello` function
+      button.addEventListener("click", sayHello);
+    }
 
     // 3 - create a `sayHello()` function
     function sayHello() {
@@ -44,7 +45,7 @@
 
       // 3B - get a reference to the #output <p>
       // 3C - update HTML of #output <p>
-      document.querySelector("#output").innerHTML = `Hello ${firstName} ${lastNamee}`;
+      document.querySelector("#output").innerHTML = `Hello ${firstName} ${lastName}`;
     }
 
     function doThis() {
@@ -63,7 +64,9 @@
 
 <body>
   <button id="button">Click Me!</button>
+  <hr>
   <input id="input-firstname" placeholder="Type in your name">
+  <input id="input-lastname" placeholder="Type in your name">
   <p id="output">???</p>
 </body>
 
