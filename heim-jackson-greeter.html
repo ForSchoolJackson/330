@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Greeter</title>
+  <style>
+    * {
+      font-size: 1.5em;
+    }
+
+    button {
+      width: 150px;
+      height: 50px;
+      font-size: 14pt;
+    }
+
+    @media only screen and (min-width: 1024) {
+      body {
+        padding: 100px;
+        background-color: aquamarine;
+      }
+    }
+  </style>
+  <script>
+    "use strict";
+
+    // 1 - get a reference to the button
+    let thisButton = document.getElementById("button");
+
+    // 2 - add a click event to button that calls a `sayHello` function
+    thisButton.addEventListener("click", sayHello);
+
+    // 3 - create a `sayHello()` function
+    function sayHello() {
+      // 3A - get name of person from the <input>
+      //get first name
+      let firstName = document.querySelector("#input-firstname").value;
+      firstName = firstName.trim() || "Peter";
+
+      //get last name
+      let lastName = document.querySelector("#input-lastname").value;
+      lastName = lastName.trim() || "Parker";
+
+      // 3B - get a reference to the #output <p>
+      // 3C - update HTML of #output <p>
+      document.querySelector("#output").innerHTML = `Hello ${firstName} ${lastNamee}`;
+    }
+
+    function doThis() {
+      Console.Log("Log end:", a, 1)
+      if (true) {
+        if (true) {
+          for (let i = 0; i < 5; i++) {
+            let a = 10;
+          }
+        }
+      }
+    }
+
+  </script>
+</head>
+
+<body>
+  <button id="button">Click Me!</button>
+  <input id="input-firstname" placeholder="Type in your name">
+  <p id="output">???</p>
+</body>
+
+</html>
