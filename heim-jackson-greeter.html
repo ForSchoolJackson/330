@@ -15,7 +15,7 @@
       font-size: 14pt;
     }
 
-    @media only screen and (min-width: 1024) {
+    @media only screen and (min-width: 1024px) {
       body {
         padding: 100px;
         background-color: aquamarine;
@@ -25,11 +25,18 @@
   <script>
     "use strict";
 
+    //script goes before html so it needs an onload
     window.onload = function () {
       // 1 - get a reference to the button
       const button = document.getElementById("button");
       // 2 - add a click event to button that calls a `sayHello` function
       button.addEventListener("click", sayHello);
+
+      //get reference to paragraph
+      const paragraph = document.querySelector("p");
+      //make colors using js
+      paragraph.style.color = "white";
+      paragraph.style.backgroundColor = "grey";
     }
 
     // 3 - create a `sayHello()` function
@@ -48,22 +55,12 @@
       document.querySelector("#output").innerHTML = `Hello ${firstName} ${lastName}`;
     }
 
-    function doThis() {
-      Console.Log("Log end:", a, 1)
-      if (true) {
-        if (true) {
-          for (let i = 0; i < 5; i++) {
-            let a = 10;
-          }
-        }
-      }
-    }
-
   </script>
 </head>
 
 <body>
-  <button id="button">Click Me!</button>
+  <button id="button">Say Hello</button>
+  <button id="btn-goodbye">Say Goodbye</button>
   <hr>
   <input id="input-firstname" placeholder="Type in your name">
   <input id="input-lastname" placeholder="Type in your name">
