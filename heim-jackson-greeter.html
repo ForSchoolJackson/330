@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>Greeter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
   <style>
     * {
       font-size: 1.5em;
@@ -13,6 +14,10 @@
       width: 150px;
       height: 50px;
       font-size: 14pt;
+    }
+
+    p {
+      font-family: 'Rubik', sans-serif;
     }
 
     @media only screen and (min-width: 1024px) {
@@ -28,9 +33,12 @@
     //script goes before html so it needs an onload
     window.onload = function () {
       // 1 - get a reference to the button
-      const button = document.getElementById("button");
+      const button1 = document.getElementById("btn-hello");
+      const button2 = document.getElementById("btn-goodbye");
+
       // 2 - add a click event to button that calls a `sayHello` function
-      button.addEventListener("click", sayHello);
+      button1.addEventListener("click", function () { greet("Hello") });
+      button2.addEventListener("click", function () { greet("Goodbye") });
 
       //get reference to paragraph
       const paragraph = document.querySelector("p");
@@ -39,8 +47,8 @@
       paragraph.style.backgroundColor = "grey";
     }
 
-    // 3 - create a `sayHello()` function
-    function sayHello() {
+    // 3 - create the arrow function
+    const greet = (greeting) => {
       // 3A - get name of person from the <input>
       //get first name
       let firstName = document.querySelector("#input-firstname").value;
@@ -52,15 +60,20 @@
 
       // 3B - get a reference to the #output <p>
       // 3C - update HTML of #output <p>
-      document.querySelector("#output").innerHTML = `Hello ${firstName} ${lastName}`;
+      document.querySelector("#output").innerHTML = `${greeting} ${firstName} ${lastName}`;
+
     }
 
   </script>
 </head>
 
 <body>
-  <button id="button">Say Hello</button>
+  <button id="btn-hello">Say Hello</button>
   <button id="btn-goodbye">Say Goodbye</button>
+  <div>
+    <input type="checkbox" id="check" name="shoutify" checked />
+    <label for="scales">Shoutify!</label>
+  </div>
   <hr>
   <input id="input-firstname" placeholder="Type in your name">
   <input id="input-lastname" placeholder="Type in your name">
