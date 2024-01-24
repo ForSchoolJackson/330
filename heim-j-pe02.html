@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Greeter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-size: 1.5em;
+      font-family: 'Rubik', sans-serif;
+    }
+
+    button {
+      width: 150px;
+      height: 50px;
+      font-size: 14pt;
+    }
+
+    #shoutify {
+      font-family: 'Rubik', sans-serif;
+      font-size: 14pt;
+    }
+
+    hr {
+      background-color: grey;
+      height: 2px;
+      border: 0;
+    }
+
+    p,
+    #input-firstname,
+    #input-lastname {
+      font-family: 'Chakra Petch', sans-serif;
+    }
+
+    @media only screen and (min-width: 1024px) {
+      body {
+        padding: 100px;
+        background-color: aquamarine;
+      }
+    }
+  </style>
+  <script>
+    "use strict";
+
+    //script goes before html so it needs an onload
+    window.onload = load => {
+      // get a reference to the button
+      const button1 = document.getElementById("btn-hello");
+      const button2 = document.getElementById("btn-goodbye");
+
+      //add a click event to button that calls the function
+      button1.addEventListener("click", function () { greet("Hello") });
+      button2.addEventListener("click", function () { greet("Goodbye") });
+
+      //get reference to paragraph
+      const paragraph = document.querySelector("p");
+      //make colors using js
+      paragraph.style.color = "white";
+      paragraph.style.backgroundColor = "grey";
+    }
+
+    //create the greeter arrow function
+    const greet = (greeting) => {
+
+      // get name of person from the <input>
+      //get first name
+      let firstName = document.querySelector("#input-firstname").value;
+      firstName = firstName.trim() || "Peter";
+      //get last name
+      let lastName = document.querySelector("#input-lastname").value;
+      lastName = lastName.trim() || "Parker";
+
+      //string variable
+      let string = `${greeting} ${firstName} ${lastName}`;
+
+      //reference to checkbox
+      let shoutify = document.querySelector("#shoutify")
+
+      //capitalize if box is checked
+      if (shoutify.checked == true) {
+        string = string.toUpperCase();
+        console.log(string)
+        console.log("checked")
+      }
+
+      //reference to the #output <p>
+      //update HTML of #output <p>
+      document.querySelector("#output").innerHTML = string;
+
+    }
+
+  </script>
+</head>
+
+<body>
+  <button id="btn-hello">Say Hello</button>
+  <button id="btn-goodbye">Say Goodbye</button>
+
+  <input type="checkbox" id="shoutify" name="shoutify" />
+  <label id="shoutify" for="shoutify">Shoutify!</label>
+
+  <hr>
+  <input id="input-firstname" placeholder="Type in your name">
+  <input id="input-lastname" placeholder="Type in your name">
+  <p id="output">???</p>
+</body>
+
+</html>
