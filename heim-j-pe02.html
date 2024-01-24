@@ -52,8 +52,8 @@
       const button2 = document.getElementById("btn-goodbye");
 
       //add a click event to button that calls the function
-      button1.addEventListener("click", function () { greet("Hello") });
-      button2.addEventListener("click", function () { greet("Goodbye") });
+      button1.addEventListener("click", click => { greet("Hello") });
+      button2.addEventListener("click", click => { greet("Goodbye") });
 
       //get reference to paragraph
       const paragraph = document.querySelector("p");
@@ -82,8 +82,7 @@
       //capitalize if box is checked
       if (shoutify.checked == true) {
         string = string.toUpperCase();
-        console.log(string)
-        console.log("checked")
+        // console.log(string)
       }
 
       //reference to the #output <p>
