@@ -31,6 +31,17 @@
             console.log(`In onload - HTTP Status Code = ${e.target.status}`);
             const text= e.target.responseText;
             console.log(`Success - the file length is ${text.length}`);
+
+			//the long way
+			let html = "<ol>";
+				for(let w of words){
+					html += `<li>${w}</li>`
+				}
+				html+= "</ol>"
+				document.querySelector("#output").innerHTML;
+
+				//the short way
+				
         }
         xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`)
         xhr.open("GET", url)
