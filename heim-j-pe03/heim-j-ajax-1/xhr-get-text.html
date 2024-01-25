@@ -38,10 +38,11 @@
 					html += `<li>${w}</li>`
 				}
 				html+= "</ol>"
-				document.querySelector("#output").innerHTML;
+				document.querySelector("#output").innerHTML=html;
 
 				//the short way
-				
+				//const html = `<ol>${words.map(w=>`<li>${w}</li>).join("")}</ol>`;
+				//document.querySelector("#output").innerHTML = html;
         }
         xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`)
         xhr.open("GET", url)
