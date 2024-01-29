@@ -15,7 +15,7 @@
 
 <body>
 	<h2>XHR - Load Text File</h2>
-	<p>The <code>pet-names.txt</code> file contains popular dog and cat pet names, separated by commas.</p>
+	<p>The <code>pet-names.csv</code> file contains popular dog and cat pet names, separated by commas.</p>
 	<p>Note that because XHR is loading a local file, this and the other examples will have to be run off a web server
 		rather than from your computer's hard drive (e.g. banjo.rit.edu or VSCode's liveserver etc)</p>
 
@@ -28,25 +28,34 @@
 		document.querySelector("#my-button").onclick = loadTextXHR;
 
 		function loadTextXHR() {
-			const url = "data/pet-names.txt";
+			const url = "data/pet-names.csv";
 			const xhr = new XMLHttpRequest();
 			xhr.onload = (e) => {
 				console.log(`In onload - HTTP Status Code = ${e.target.status}`);
 				const text = e.target.responseText;
 				console.log(`Success - the file length is ${text.length}`);
+				// const lines = text.split("\n");
+				// const dogNames = lines[0].split(",");
+				// const catNames = lines[1].split(",");
 
-				const words = text.split(",");
+				let [dogNames, catNames, birdNames] = text.split("\n");
+				dogNames = dogNames.split(",");
+				catNames = catNames.split(",");
+				birdNames = birdNames.split(",");
 
-				//the long way
-				//let html = "<ol>";
-				//	for(let w of words){
-				// 		html += `<li>${w}</li>`
-				// 	}
-				// 	html+= "</ol>"
-				// 	document.querySelector("#output").innerHTML=html;
+				const dogHtml = `<ol>${dogNames.map(w => `<li>${w}</li>`).join("")}</ol>`;
+				const catHtml = `<ol>${catNames.map(w => `<li>${w}</li>`).join("")}</ol>`;
+				const birdHtml = `<ol>${birdNames.map(w => `<li>${w}</li>`).join("")}</ol>`;
 
-				//the short way
-				const html = `<ol>${words.map(w => `<li>${w}</li>`).join("")}</ol>`;
+				const html = `
+				<h3>Dog Names</h3>
+				${dogHtml}
+				<h3>Cat Names</h3>
+				${catHtml}
+				<h3>Bird Names</h3>
+				${birdHtml}
+				`
+
 				document.querySelector("#output").innerHTML = html;
 			}
 			xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`)
