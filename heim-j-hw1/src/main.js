@@ -1,22 +1,17 @@
 
 //globals
-const words1 = ["Acute", "Aft", "Anti-matter", "Bipolar", "Cargo", "Command", "Communication", "Computer", "Deuterium", "Dorsal", "Emergency", "Engineering", "Environmental", "Flight", "Fore", "Guidance", "Heat", "Impulse", "Increased", "Inertial", "Infinite", "Ionizing", "Isolinear", "Lateral", "Linear", "Matter", "Medical", "Navigational", "Optical", "Optimal", "Optional", "Personal", "Personnel", "Phased", "Reduced", "Science", "Ship's", "Shuttlecraft", "Structural", "Subspace", "Transporter", "Ventral"];
-const words2 = ["Propulsion", "Dissipation", "Sensor", "Improbability", "Buffer", "Graviton", "Replicator", "Matter", "Anti-matter", "Organic", "Power", "Silicon", "Holographic", "Transient", "Integrity", "Plasma", "Fusion", "Control", "Access", "Auto", "Destruct", "Isolinear", "Transwarp", "Energy", "Medical", "Environmental", "Coil", "Impulse", "Warp", "Phaser", "Operating", "Photon", "Deflector", "Integrity", "Control", "Bridge", "Dampening", "Display", "Beam", "Quantum", "Baseline", "Input"];
-const words3 = ["Chamber", "Interface", "Coil", "Polymer", "Biosphere", "Platform", "Thruster", "Deflector", "Replicator", "Tricorder", "Operation", "Array", "Matrix", "Grid", "Sensor", "Mode", "Panel", "Storage", "Conduit", "Pod", "Hatch", "Regulator", "Display", "Inverter", "Spectrum", "Generator", "Cloud", "Field", "Terminal", "Module", "Procedure", "System", "Diagnostic", "Device", "Beam", "Probe", "Bank", "Tie-In", "Facility", "Bay", "Indicator", "Cell"];
-let button1,button2;
+let button1, button2;
+let words1 = [];
+let words2 = [];
+let words3 = [];
 
 //initialize function
 const init = () => {
-     button1 = document.querySelector("#btn-gen-1")
-     button2 = document.querySelector("#btn-gen-5")
+    button1 = document.querySelector("#btn-gen-1")
+    button2 = document.querySelector("#btn-gen-5")
 }
 
 init();
-
-//get new technobabble when button clicked
-//use event listeners
-button1.addEventListener("click", click => generateTechno(1));
-button2.addEventListener("click", click => generateTechno(2));
 
 //generate technobabble for both buttons
 const generateTechno = (num) => {
@@ -36,9 +31,6 @@ const generateTechno = (num) => {
         babbleStr += `<ol>${randomWord(words1)} ${randomWord(words2)} ${randomWord(words3)}</ol> \n`
     }
 
-    console.log(babbleStr)
-
-
     //output technobabble in output paragraph
     document.querySelector("#output").innerHTML = babbleStr;
 
@@ -47,7 +39,42 @@ const generateTechno = (num) => {
 //import randomwords function
 import { randomWord } from './utils.js';
 
+//use xhr to load data
+const loadBabble = () => {
+    const url = "../data/babble-data.json";
+    const xhr = new XMLHttpRequest();
+
+    xhr.onload = (e) => {
+        console.log(`In onload - HTTP Status Code = ${e.target.status}`);
+
+        babbleLoaded(e);
+    }
+
+    xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`)
+    xhr.open("GET", url)
+    xhr.send();
+
+}
+
+//callback function 
+const babbleLoaded = (e) => {
+    //parse json
+    let json = JSON.parse(e.target.responseText)
+
+    //initialize values of arrays
+    words1 = json["words1"];
+    words2 = json["words2"];
+    words3 = json["words3"];
+
+    //initialize button click event
+    button1.addEventListener("click", click => generateTechno(1));
+    button2.addEventListener("click", click => generateTechno(2));
+
+    //call start up babble
+    generateTechno(1);
+
+}
 
 
-//create first technobabble
-generateTechno(1);
+//call loadBabble when page load
+loadBabble();

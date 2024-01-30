@@ -30,9 +30,9 @@
                 console.log(`In onload - HTTP Status Code = ${e.target.status}`);
 
                 let json;
-                try{
-                 json = JSON.parse(e.target.responseText)
-                }catch{
+                try {
+                    json = JSON.parse(e.target.responseText)
+                } catch {
                     document.querySelector("#output").innerHTML = "BAD JSON";
                     return;
                 }
@@ -42,7 +42,7 @@
                 for (let k of keys) {
                     //console.log(json[k])
                     const obj = json[k];
-                    html += `<h3>${obj.title= obj.title ? obj.title: "No title found"}</h3>`;
+                    html += `<h3>${obj.title = obj.title ? obj.title : "No title found"}</h3>`;
                     html += `<ol>${obj["namelist"].map(w => `<li>${w}</li>`).join("")}</ol>`;
                 }
 
@@ -66,7 +66,7 @@
                 // <h3>Cat Names</h3>
                 // ${catHtml}
                 // <h3>Bird Names</h3>
-				// ${birdHtml}
+                // ${birdHtml}
                 // `
 
                 document.querySelector("#output").innerHTML = html;
