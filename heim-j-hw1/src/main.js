@@ -1,4 +1,7 @@
 
+//import randomwords function
+import { randomWord } from './utils.js';
+
 //globals
 let button1, button2;
 let words1 = [];
@@ -36,9 +39,6 @@ const generateTechno = (num) => {
 
 }
 
-//import randomwords function
-import { randomWord } from './utils.js';
-
 //use xhr to load data
 const loadBabble = () => {
     const url = "../data/babble-data.json";
@@ -59,7 +59,12 @@ const loadBabble = () => {
 //callback function 
 const babbleLoaded = (e) => {
     //parse json
-    let json = JSON.parse(e.target.responseText)
+    let json;
+    try{
+        json = JSON.parse(e.target.responseText)
+    }catch{
+        console.log("BAD JSON")
+    }
 
     //initialize values of arrays
     words1 = json["words1"];
