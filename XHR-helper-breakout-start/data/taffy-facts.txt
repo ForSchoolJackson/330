@@ -1,0 +1,4 @@
+<div>
+  <b>Taffy</b> is a type of candy invented in the United States, made by stretching or pulling a sticky mass of boiled sugar, butter or vegetable oil, flavorings, and colorings, until it becomes aerated (tiny air bubbles produced), resulting in a light, fluffy and chewy candy. When this process is complete, the taffy is rolled, cut into small pieces and wrapped in wax paper to keep it soft. It is usually pastel-colored and fruit-flavored, but other flavors are common as well, including molasses and the "classic" (unflavored) taffy.
+</div>
+<p><a href="https://en.wikipedia.org/wiki/Taffy_(candy)">Wikipedia - Taffy (candy)</a></p>
