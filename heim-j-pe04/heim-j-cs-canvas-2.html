@@ -68,12 +68,39 @@
 
             //semi circle
             ctx.beginPath();
-            ctx.arc(320,240,20,0,Math.PI,false);
+            ctx.arc(320,250,20,0,Math.PI,false);
             ctx.closePath();
             ctx.fill();
             ctx.stroke();
 
             //eyes circles
+            ctx.fillStyle = "black"
+            ctx.strokeStyle = "white"
+
+            ctx.beginPath();
+            ctx.arc(340,220,10,0,Math.PI*2,false);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(300,220,10,0,Math.PI*2,false);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            //add extra line
+            ctx.strokeStyle = "rgb(61, 1, 1)"
+            ctx.lineWidth = 20;
+            ctx.beginPath();
+            ctx.moveTo(20,80);
+            ctx.lineTo(620,80);
+            ctx.closePath;
+            ctx.lineWidth = 10;
+            ctx.stroke();
+
+
+
             
 
 
