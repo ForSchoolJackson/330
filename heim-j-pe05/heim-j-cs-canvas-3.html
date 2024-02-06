@@ -39,23 +39,39 @@
 
         }
 
-        //make random shapes
+        //make random rectangles
         function drawRandomRect(ctx) {
-            ctx.fillStyle = "#3bf75b"
-           // ctx.strokeStyle = "#167526"
-            ctx.lineWidth = getRandomInt(2,12);
+            ctx.fillStyle = getRandomColor(40, "rand", "rand", .8);
+           // ctx.strokeStyle = getRandomColor(250, "rand", "rand", .8);
+            ctx.lineWidth = getRandomInt(2, 5);
             ctx.beginPath();
-            ctx.rect(getRandomInt(0, 640), getRandomInt(0, 480), getRandomInt(10,90), getRandomInt(10,90));
+            ctx.rect(getRandomInt(0, 640), getRandomInt(0, 480), getRandomInt(10, 90), getRandomInt(10, 90));
             ctx.closePath();
             ctx.fill();
+            ctx.stroke();
+        }
+
+        //makes random circle
+        function drawRandomCirle() {
+
         }
 
         // handy helper functions!
-        function getRandomColor() {
+        function getRandomColor(r, g, b, a) {
             function getByte() {
-                return 55 + Math.round(Math.random() * 200);
+                return 50 + Math.round(Math.random() * 200);
             }
-            return "rgba(" + getByte() + "," + getByte() + "," + getByte() + ",.8)";
+
+            if (r == "rand") {
+                r = getByte();
+            } if (g == "rand") {
+                g = getByte();
+            } if (b == "rand") {
+                b = getByte();
+            } if (a == "rand") {
+                a = getByte();
+            }
+            return "rgba(" + r + "," + g + "," + b + "," + a + ")";
         }
 
         function getRandomInt(min, max) {
