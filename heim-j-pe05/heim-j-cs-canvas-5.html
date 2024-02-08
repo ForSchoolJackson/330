@@ -83,7 +83,7 @@
         }
 
         function drawRandomLine() {
-            drawLine(ctx, 0, 0, getRandomInt(0, 600), getRandomInt(0, 600),3,"aquamarine");
+            drawLine(ctx, getRandomInt(20,600), getRandomInt(20,400), getRandomInt(20, 600), getRandomInt(20, 400),getRandomInt(1,3),"pink");
         }
 
         //draw rectangles
@@ -147,8 +147,8 @@
                 let y = getRandomInt(-100, 100) + mouseY;
                 let r = getRandomInt(10, 20);
                 let color = getRandomColor(20, "rand", "rand", .5);
-               // drawArc(ctx, x, y, r, fillStyle = "black", lineWidth = 0, strokeStyle = "black", startAngle = 0, endAngle = Math.PI * 2) 
-                drawArc(ctx,x,y,r,"black",Math.PI*2,color);
+        
+                drawArc(ctx,x,y,r,"black",10,color, 0, Math.PI*2);
 
             }
         }
@@ -166,6 +166,9 @@
                 }
                 played = true;
             }
+            document.querySelector("#btn-clear").onclick = function () {
+                drawRectangle(ctx, 0, 0, 640, 480,"#a8ffe6");
+            };
 
             canvas.onclick = canvasClicked;
 
@@ -215,6 +218,7 @@
     <section>
         <button id="btnPlay">Play</button>
         <button id="btnPause">Pause</button>
+        <button id="btn-clear">Clear Screen</button>
     </section>
     <section>
         <span>
