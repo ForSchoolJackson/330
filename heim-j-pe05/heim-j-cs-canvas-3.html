@@ -34,25 +34,37 @@
         //update the animation 
         function update() {
             window.requestAnimationFrame(update)
-            //draw rects
-            drawRandomRect(ctx);
+            //radomixe which one drawn
+            if (getRandomInt(1, 10) == 1) {
+                //draw rects
+              drawRandomRect(ctx);
+
+            } else {
+                //craw circle
+                drawRandomCirle(ctx)
+            }
 
         }
 
         //make random rectangles
         function drawRandomRect(ctx) {
             ctx.fillStyle = getRandomColor(40, "rand", "rand", .8);
-           // ctx.strokeStyle = getRandomColor(250, "rand", "rand", .8);
-            ctx.lineWidth = getRandomInt(2, 5);
+            ctx.strokeStyle ="black"
+            ctx.lineWidth = getRandomInt(2, 3);
             ctx.beginPath();
-            ctx.rect(getRandomInt(0, 640), getRandomInt(0, 480), getRandomInt(10, 90), getRandomInt(10, 90));
+            ctx.rect(getRandomInt(-100, 620), getRandomInt(-10, 460), getRandomInt(100, 300), getRandomInt(10, 30));
             ctx.closePath();
             ctx.fill();
             ctx.stroke();
         }
 
         //makes random circle
-        function drawRandomCirle() {
+        function drawRandomCirle(ctx) {
+            ctx.fillStyle = getRandomColor(240, "rand", "rand", .2);
+            ctx.beginPath();
+            ctx.arc(getRandomInt(20, 620), getRandomInt(20, 460), getRandomInt(0, 20), 0, Math.PI * 2, false);
+            ctx.closePath();
+            ctx.fill();
 
         }
 
