@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>First Canvas</title>
+    <title>Screensaver</title>
     <style>
         canvas {
             border: 1px solid gray;
@@ -30,6 +30,8 @@
         let played = false;
         let canvas;
         let createRectangles = true;
+        let createCircles = true;
+        let createLines = true;
 
 
         //call init after page loads
@@ -38,8 +40,8 @@
         function init() {
             canvas = document.querySelector("canvas");
             ctx = canvas.getContext("2d");
-            ctx.fillStyle = "#a8ffe6";
-            ctx.fillRect(0, 0, 640, 480);
+
+            drawRectangle(ctx, 0, 0, 640, 480,"#a8ffe6");
 
             setupUI();
 
@@ -54,15 +56,18 @@
             //if not
             window.requestAnimationFrame(update)
 
-            //radomixe which one drawn
-            if (getRandomInt(1, 10) == 1) {
-                //draw rects
-                if (createRectangles) drawRandomRect(ctx);
+            //radomize which one drawn
+            if (getRandomInt(1, 20) == 1) {
+               //draw rects
+               if (createRectangles) drawRandomRect(ctx);
 
-            } else {
+            } else if(getRandomInt(1,10)==1) {
+                //draw line
+                if(createLines) drawRandomLine(ctx)
+               
+            }else {
                 //craw circle
-                drawRandomCirle(ctx)
-               // drawRandomLine(ctx)
+                if(createCircles) drawRandomCirle(ctx)
             }
 
         }
@@ -116,6 +121,7 @@
         //draw lines
         function drawLine(ctx, x1, y1, x2, y2, lineWidth = 1, strokeStyle = "black") {
             ctx.save();
+            ctx.globalAlpha=0.3;
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
@@ -126,8 +132,6 @@
             }
             ctx.closePath();
             ctx.restore();
-
-            console.log("line")
 
         }
 
@@ -141,11 +145,10 @@
             for (let i = 0; i < 10; i++) {
                 let x = getRandomInt(-100, 100) + mouseX;
                 let y = getRandomInt(-100, 100) + mouseY;
-                let width = getRandomInt(20, 50);
-                let height = getRandomInt(20, 50);
+                let r = getRandomInt(10, 20);
                 let color = getRandomColor(20, "rand", "rand", .5);
-                drawRectangle(ctx, x, y, width, height, color)
-
+               // drawArc(ctx, x, y, r, fillStyle = "black", lineWidth = 0, strokeStyle = "black", startAngle = 0, endAngle = Math.PI * 2) 
+                drawArc(ctx,x,y,r,"black",Math.PI*2,color);
 
             }
         }
@@ -166,8 +169,17 @@
 
             canvas.onclick = canvasClicked;
 
+            // checkbox presses
             document.querySelector("#cbRectangles").onclick = function (e) {
                 createRectangles = e.target.checked;
+            }
+
+            document.querySelector("#cb-circles").onclick = function (e) {
+                createCircles = e.target.checked;
+            }
+
+            document.querySelector("#cb-lines").onclick = function (e) {
+                createLines = e.target.checked;
             }
         }
 
@@ -208,10 +220,16 @@
         <span>
             <input type="checkbox" id="cbRectangles" checked>
             <label for="cbRectangles">Rectangles</label>
+
+            <input type="checkbox" id="cb-circles" checked>
+            <label for="cb-circles">Circles</label>
+
+            <input type="checkbox" id="cb-lines" checked>
+            <label for="cb-lines">Lines</label>
         </span>
     </section>
     <section>
-        <p>Click on the screen to "spraypaint" rectangles (you probably want the screensaver to be paused)</p>
+        <p>Click on the screen to "spraypaint" arcs (you probably want the screensaver to be paused)</p>
     </section>
 
 </body>
