@@ -32,7 +32,7 @@ export const drawArc = (ctx, x, y, r, fillStyle = "black", lineWidth = 0, stroke
 }
 
 //draw lines
-export const drawLine = (ctx, x1, y1, x2, y2, lineWidth = 1, strokeStyle = "black") =>{
+export const drawLine = (ctx, x1, y1, x2, y2, lineWidth = 1, strokeStyle = "black") => {
     ctx.save();
     ctx.globalAlpha = 0.3;
     ctx.beginPath();

@@ -30,7 +30,7 @@ import { drawLine } from "./canvas-utils.js";
 
 //update the animation 
 const update = () => {
-    //leave update function if paused
+    //leave update if paused
     if (paused) return;
 
     //if not
@@ -98,9 +98,15 @@ const setupUI = () => {
     canvas.onclick = canvasClicked;
 
     // checkbox presses
-    document.querySelector("#cb-rectangles").onclick = (e) => createRectangles = e.target.checked;
-    document.querySelector("#cb-circles").onclick = (e) => createCircles = e.target.checked;
-    document.querySelector("#cb-lines").onclick = (e) => createLines = e.target.checked;
+    document.querySelector("#cb-rectangles").onclick = (e) => {
+        createRectangles = e.target.checked;
+    }
+    document.querySelector("#cb-circles").onclick = (e) => {
+        createCircles = e.target.checked;
+    }
+    document.querySelector("#cb-lines").onclick = (e) => {
+        createLines = e.target.checked;
+    }
 
 }
 
