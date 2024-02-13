@@ -1,0 +1,15 @@
+canvas {
+    border: 1px solid gray;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+button {
+    font-size: 1.2em;
+}
+
+section {
+    margin: .5em 0 .5em 0;
+}
