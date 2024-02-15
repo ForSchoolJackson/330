@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Sine Start</title>
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+	<script>
+		"use strict";
+
+		//globals
+		const canvasWidth = 400, canvasHeight = 300;
+		let ctx;
+		let n = 0; //number
+		const divergence = 137.5;
+		const c = 4; //padding
+		const fps = 60;
+		const radius = 2;
+
+		window.onload = init
+
+		//initialize
+		function init() {
+			ctx = canvas.getContext("2d");
+			canvas.width = canvasWidth;
+			canvas.height = canvasHeight;
+			ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+			loop();
+		}
+
+		//loop
+		function loop() {
+			setTimeout(loop, 1000 / fps);
+
+			// each frame draw a new dot
+			let a = n * dtr(divergence); //angle
+			let r = c * Math.sqrt(n); //radius
+
+			// calculate the `x` and `y`
+			let x = r * Math.cos(a) + canvasWidth / 2;
+			let y = r * Math.sin(a) + canvasHeight / 2;
+
+			let color = `hsl(${n/5 % 361},100%,50%)`;
+			drawCircle(ctx, x, y, radius, color);
+
+
+			n++;
+		}
+
+		// helpers
+		function dtr(degrees) {
+			return degrees * (Math.PI / 180);
+		}
+		//make circle
+		function drawCircle(ctx, x, y, radius, color) {
+			ctx.save();
+			ctx.fillStyle = color;
+			ctx.beginPath();
+			ctx.arc(x, y, radius, 0, Math.PI * 2);
+			ctx.closePath();
+			ctx.fill();
+			ctx.restore();
+		}
+
+	</script>
+</head>
+
+<body>
+	<canvas id="canvas"></canvas>
+
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Sine Start</title>
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+	<script>
+		"use strict";
+		const canvasWidth = 400, canvasHeight = 300;
+		let ctx;
+		let x = 0;
+		let y = 0;
+		let angle = 0;
+		const fps = 12;
+
+		window.onload = init;
+
+		//initialize
+		function init() {
+			ctx = canvas.getContext("2d");
+			canvas.width = canvasWidth;
+			canvas.height = canvasHeight;
+			ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+			loop();
+		}
+
+		//loop through to make waves
+		function loop() {
+			setTimeout(loop, 1000 / 12);
+
+			//fill in background 
+			ctx.save();
+			ctx.fillStyle = "black";
+			ctx.globalAlpha = 1 / fps;
+			ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+			ctx.restore();
+
+			x += 10;
+			angle += .3;
+
+			y = canvasHeight / 2 + Math.sin(angle) * 100;
+			drawCircle(ctx, x, y, 2, "white")
+
+			y = canvasHeight / 2 + Math.cos(angle) * 100;
+			drawCircle(ctx, x, y, 2, "red")
+
+			y = canvasHeight / 2 - Math.sqrt(x % 50) * 5;
+			drawCircle(ctx, x, y, 4, "yellow")
+
+
+			//came back to screen
+			if (x > canvasWidth) x = 0;
+		}
+
+
+		// helpers
+		function dtr(degrees) {
+			return degrees * (Math.PI / 180);
+		}
+
+		//draw circle
+		function drawCircle(ctx, x, y, radius, color) {
+			ctx.save();
+			ctx.fillStyle = color;
+			ctx.beginPath();
+			ctx.arc(x, y, radius, 0, Math.PI * 2);
+			ctx.closePath();
+			ctx.fill();
+			ctx.restore();
+		}
+
+	</script>
+</head>
+
+<body>
+	<canvas id="canvas"></canvas>
+
+</body>
+
+</html>
