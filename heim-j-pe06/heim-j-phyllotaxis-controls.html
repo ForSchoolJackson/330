@@ -27,7 +27,7 @@
 		<button id="btn-restart">Restart App</button>
 	</div>
 
-	<p><b>Controls</b><br>Use the pulldown to chnage the divergence angle of the patterm as it moves.<br>
+	<p><b>Controls</b><br>Use the pulldown to change the divergence angle of the pattern as it moves.<br>
 		Press the Restart App button to reset the pattern.<br>
 		Click the screen to make a flower at that location.
 	</p>
@@ -58,7 +58,7 @@
 		loop();
 	}
 
-	//loop
+	//loop to create pattern
 	function loop() {
 		setTimeout(loop, 1000 / fps);
 
@@ -87,6 +87,7 @@
 
 	//canvas click event (draw flower)
 	const canvasClicked = (e) => {
+		//find mouseX and mouseY
 		let rect = e.target.getBoundingClientRect();
 		let mouseX = e.clientX - rect.x;
 		let mouseY = e.clientY - rect.y;
@@ -95,10 +96,11 @@
 			let aFlower = i * dtr(137.1)
 			let rFlower = 2 * Math.sqrt(i);
 
-			// calculate the `x` and `y` relative to mouseX and mouseY
+			//get X and Y
 			let x = rFlower * Math.cos(aFlower) + mouseX;
 			let y = rFlower * Math.sin(aFlower) + mouseY;
 
+			//draw the circles
 			let color = `hsl(${i % 200},100%,50%)`;
 			drawCircle(ctx, x, y, 1, color);
 		}
