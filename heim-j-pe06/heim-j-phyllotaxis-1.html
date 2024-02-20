@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Sine Start</title>
+	<title>Phyllotaxis</title>
 	<style>
 		canvas {
 			border: 1px solid black;
@@ -26,6 +26,11 @@
 		</select>
 		<button id="btn-restart">Restart App</button>
 	</div>
+
+	<p><b>Controls</b><br>Use the pulldown to chnage the divergence angle of the patterm as it moves.<br>
+		Press the Restart App button to reset the pattern.<br>
+		Click the screen to make a flower at that location.
+	</p>
 
 </body>
 
@@ -72,8 +77,32 @@
 		let color = `hsl(${n / 5 % 361},100%,50%)`;
 		drawCircle(ctx, x, y, radius, color);
 
-
 		n++;
+
+		//loop back through
+		if (n > 1150) {
+			restartLoop();
+		}
+	}
+
+	//canvas click event (draw flower)
+	const canvasClicked = (e) => {
+		let rect = e.target.getBoundingClientRect();
+		let mouseX = e.clientX - rect.x;
+		let mouseY = e.clientY - rect.y;
+
+		for (let i = 0; i < 40; i++) {
+			let aFlower = i * dtr(137.1)
+			let rFlower = 2 * Math.sqrt(i);
+
+			// calculate the `x` and `y` relative to mouseX and mouseY
+			let x = rFlower * Math.cos(aFlower) + mouseX;
+			let y = rFlower * Math.sin(aFlower) + mouseY;
+
+			let color = `hsl(${i % 200},100%,50%)`;
+			drawCircle(ctx, x, y, 1, color);
+		}
+
 	}
 
 
@@ -93,28 +122,16 @@
 		ctx.restore();
 	}
 
-	//canvas click event (draw flower)
-	const canvasClicked = (e) => {
-		let rect = e.target.getBoundingClientRect();
-		let mouseX = e.clientX - rect.x;
-		let mouseY = e.clientY - rect.y;
+	const restartLoop = () => {
+		// Fill the entire canvas with black color
+		ctx.fillStyle = 'black';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-		for (let i = 0; i < 40; i++) {
-        let aFlower = i * dtr( 137.3) 
-        let rFlower = 3 * Math.sqrt(i); 
+		//reset variables
+		n = 1;
+		c = 2;
+		radius = 2;
 
-        // calculate the `x` and `y` relative to mouseX and mouseY
-        let x = rFlower * Math.cos(aFlower) + mouseX;
-        let y = rFlower * Math.sin(aFlower) + mouseY;
-
-        let color = `yellow`;
-        drawCircle(ctx, x, y, 6, color);
-
-		
-    }
-		console.log("click")
-
-		
 
 	}
 
@@ -126,17 +143,7 @@
 	//restart button
 	document.querySelector("#btn-restart").onclick = (e) => {
 
-		// Fill the entire canvas with black color
-		ctx.fillStyle = 'black';
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-		//reset variables
-		n = 1;
-		c = 2;
-		radius = 2;
-
-		console.log(divergence)
-
+		restartLoop();
 
 	}
 
