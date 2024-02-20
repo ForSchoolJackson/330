@@ -16,8 +16,9 @@ import * as canvas from './visualizer.js';
 const drawParams = {
   showGradient: true,
   showBars: true,
-  showCircles: false,
-  showNoise: true
+  showCircles: true,
+  showNoise: false,
+  showInvert: false
 }
 
 // 1 - here we are faking an enumeration
@@ -96,13 +97,73 @@ function setupUI(canvasElement) {
     }
   };
 
+  //CHECKBOX EVENTS
+  //reference from html
+  let gradCheck = document.querySelector("#gradientCB")
+  let barCheck = document.querySelector("#barsCB")
+  let circleCheck = document.querySelector("#circlesCB")
+  let noiseCheck = document.querySelector("#noiseCB")
+  let invCheck = document.querySelector("#invertCB")
+
+  //start them checked
+  gradCheck.checked = true;
+  barCheck.checked = true;
+  circleCheck.checked = true;
+
+  //gradient
+  gradCheck.onclick = () => {
+    if (gradCheck.checked) {
+      drawParams.showGradient = true;
+    } else {
+      drawParams.showGradient = false;
+    }
+  }
+
+  //bars
+  barCheck.onclick = () => {
+    if (barCheck.checked) {
+      drawParams.showBars = true;
+    } else {
+      drawParams.showBars = false;
+    }
+  }
+
+  //circles
+  circleCheck.onclick = () => {
+    if (circleCheck.checked) {
+      drawParams.showCircles = true;
+    } else {
+      drawParams.showCircles = false;
+    }
+
+  }
+
+  //noise
+  noiseCheck.onclick = () => {
+    if (noiseCheck.checked) {
+      drawParams.showNoise = true;
+    } else {
+      drawParams.showNoise = false;
+    }
+
+  }
+
+  //invert
+  invCheck.onclick = () =>{
+    if(invCheck.checked){
+      drawParams.showInvert = true;
+    }else{
+      drawParams.showInvert = false;
+    }
+
+  }
+
 } // end setupUI
 
-//DATA VISULIZE
+//DATA VISULIZER
 function loop() {
   canvas.draw(drawParams);
   requestAnimationFrame(loop);
-
 
 }
 

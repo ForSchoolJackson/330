@@ -16,7 +16,7 @@ const DEFAULTS = Object.freeze({
 let audioData = new Uint8Array(DEFAULTS.numSamples / 2);
 
 // **Next are "public" methods - we are going to export all of these at the bottom of this file**
-function setupWebaudio(filePath) {
+const setupWebaudio = (filePath) => {
     // 1 - The || is because WebAudio has not been standardized across browsers yet
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     audioCtx = new AudioContext();
@@ -58,22 +58,22 @@ function setupWebaudio(filePath) {
 }
 
 //load
-function loadSoundFile(filePath) {
+const loadSoundFile = (filePath) => {
     element.src = filePath;
 }
 
 //play
-function playCurrentSound() {
+const playCurrentSound = () => {
     element.play();
 }
 
 //pause
-function pauseCurrentSound() {
+const pauseCurrentSound = () => {
     element.pause();
 }
 
 //volume change
-function setVolume(value) {
+const setVolume = (value) => {
     // make sure that it's a Number rather than a String
     value = Number(value);
     gainNode.gain.value = value
