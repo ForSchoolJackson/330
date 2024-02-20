@@ -9,70 +9,141 @@
 			border: 1px solid black;
 		}
 	</style>
-	<script>
-		"use strict";
 
-		//globals
-		const canvasWidth = 400, canvasHeight = 300;
-		let ctx;
-		let n = 0; //number
-		const divergence = 137.5;
-		const c = 4; //padding
-		const fps = 60;
-		const radius = 2;
-
-		window.onload = init
-
-		//initialize
-		function init() {
-			ctx = canvas.getContext("2d");
-			canvas.width = canvasWidth;
-			canvas.height = canvasHeight;
-			ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-
-			loop();
-		}
-
-		//loop
-		function loop() {
-			setTimeout(loop, 1000 / fps);
-
-			// each frame draw a new dot
-			let a = n * dtr(divergence); //angle
-			let r = c * Math.sqrt(n); //radius
-
-			// calculate the `x` and `y`
-			let x = r * Math.cos(a) + canvasWidth / 2;
-			let y = r * Math.sin(a) + canvasHeight / 2;
-
-			let color = `hsl(${n/5 % 361},100%,50%)`;
-			drawCircle(ctx, x, y, radius, color);
-
-
-			n++;
-		}
-
-		// helpers
-		function dtr(degrees) {
-			return degrees * (Math.PI / 180);
-		}
-		//make circle
-		function drawCircle(ctx, x, y, radius, color) {
-			ctx.save();
-			ctx.fillStyle = color;
-			ctx.beginPath();
-			ctx.arc(x, y, radius, 0, Math.PI * 2);
-			ctx.closePath();
-			ctx.fill();
-			ctx.restore();
-		}
-
-	</script>
 </head>
 
 <body>
 	<canvas id="canvas"></canvas>
 
+	<div id="controls">
+		<label>Divergence Angle</label>
+		<select id="ctrl-divergence">
+			<option value="137.1">137.1</option>
+			<option value="137.3">137.3</option>
+			<option value="137.5" selected>137.5</option>
+			<option value="137.7">137.7</option>
+			<option value="137.9">137.9</option>
+		</select>
+		<button id="btn-restart">Restart App</button>
+	</div>
+
 </body>
+
+<script>
+	"use strict";
+
+	//globals
+	const canvasWidth = 640, canvasHeight = 480;
+	const fps = 60;
+	let ctx;
+	let n = 0; //number
+	let divergence = 137.5;
+	let c = 2; //padding
+	let radius = 2;
+
+	window.onload = init
+
+	//initialize
+	function init() {
+		ctx = canvas.getContext("2d");
+		canvas.width = canvasWidth;
+		canvas.height = canvasHeight;
+		ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+		loop();
+	}
+
+	//loop
+	function loop() {
+		setTimeout(loop, 1000 / fps);
+
+		//increase c and radius
+		c += 0.01;
+		radius += 0.01
+
+		// each frame draw a new dot
+		let a = n * dtr(divergence); //angle
+		let r = c * Math.sqrt(n); //radius
+
+		// calculate the `x` and `y`
+		let x = r * Math.cos(a) + canvasWidth / 2;
+		let y = r * Math.sin(a) + canvasHeight / 2;
+
+		let color = `hsl(${n / 5 % 361},100%,50%)`;
+		drawCircle(ctx, x, y, radius, color);
+
+
+		n++;
+	}
+
+
+
+	// helpers
+	function dtr(degrees) {
+		return degrees * (Math.PI / 180);
+	}
+	//make circle
+	function drawCircle(ctx, x, y, radius, color) {
+		ctx.save();
+		ctx.fillStyle = color;
+		ctx.beginPath();
+		ctx.arc(x, y, radius, 0, Math.PI * 2);
+		ctx.closePath();
+		ctx.fill();
+		ctx.restore();
+	}
+
+	//canvas click event (draw flower)
+	const canvasClicked = (e) => {
+		let rect = e.target.getBoundingClientRect();
+		let mouseX = e.clientX - rect.x;
+		let mouseY = e.clientY - rect.y;
+
+		for (let i = 0; i < 40; i++) {
+        let aFlower = i * dtr( 137.3) 
+        let rFlower = 3 * Math.sqrt(i); 
+
+        // calculate the `x` and `y` relative to mouseX and mouseY
+        let x = rFlower * Math.cos(aFlower) + mouseX;
+        let y = rFlower * Math.sin(aFlower) + mouseY;
+
+        let color = `yellow`;
+        drawCircle(ctx, x, y, 6, color);
+
+		
+    }
+		console.log("click")
+
+		
+
+	}
+
+	// divergence changes
+	document.querySelector("#ctrl-divergence").onchange = (e) => {
+		divergence = e.target.value;
+	}
+
+	//restart button
+	document.querySelector("#btn-restart").onclick = (e) => {
+
+		// Fill the entire canvas with black color
+		ctx.fillStyle = 'black';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		//reset variables
+		n = 1;
+		c = 2;
+		radius = 2;
+
+		console.log(divergence)
+
+
+	}
+
+	//onclick event
+	canvas.onclick = canvasClicked;
+
+</script>
+
 
 </html>
