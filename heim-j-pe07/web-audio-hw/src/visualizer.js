@@ -130,16 +130,28 @@ const draw = (params = {}) => {
 
         //invert
         if (params.showInvert) {
-            let red = data[i], green = data[i + 1], blue = [i + 2];
+            let red = data[i], green = data[i + 1], blue = data[i + 2];
             data[i] = 255 - red; //set red
             data[i + 1] = 255 - green //set green
             data[i + 2] = 255 - blue //set blue
             //data[1 +3] is alpha
         }
+
     } // end for
+
+     //emboss
+     if (params.showEmboss) {
+        for (let i = 0; i < length; i++) {
+            if (i % 4 == 3) continue; //skip alpha chnnel
+            data[i] = 127 + 2 * data[i] - data[i + 4] - data[i + width * 4];
+        }
+    }
 
     // D) copy image data back to canvas
     ctx.putImageData(imageData, 0, 0);
+
+
+
 
 
 }

@@ -18,7 +18,8 @@ const drawParams = {
   showBars: true,
   showCircles: true,
   showNoise: false,
-  showInvert: false
+  showInvert: false,
+  showEmboss: false
 }
 
 // 1 - here we are faking an enumeration
@@ -104,6 +105,7 @@ function setupUI(canvasElement) {
   let circleCheck = document.querySelector("#circlesCB")
   let noiseCheck = document.querySelector("#noiseCB")
   let invCheck = document.querySelector("#invertCB")
+  let embCheck = document.querySelector("#embossCB")
 
   //start them checked
   gradCheck.checked = true;
@@ -154,6 +156,17 @@ function setupUI(canvasElement) {
       drawParams.showInvert = true;
     }else{
       drawParams.showInvert = false;
+    }
+
+  }
+
+   //emboss
+   embCheck.onclick = () =>{
+    if(embCheck.checked){
+      drawParams.showEmboss = true;
+      //console.log(drawParams.showEmboss)
+    }else{
+      drawParams.showEmboss = false;
     }
 
   }
