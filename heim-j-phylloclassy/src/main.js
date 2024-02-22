@@ -2,7 +2,7 @@
 class PhylloFlower {
     //construcor
     constructor(n, centerX, centerY, divergence, c) {
-        n = 0;
+        this.n = 0;
         this.centerX = centerX;
         this.centerY = centerY;
         this.divergence = divergence;
@@ -54,6 +54,7 @@ class PhylloFlower {
 const canvasWidth = 640, canvasHeight = 480;
 const fps = 60;
 let ctx;
+let sprites = [];
 
 window.onload = init
 
@@ -64,7 +65,7 @@ function init() {
     canvas.height = canvasHeight;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-    loop();
+   // loop();
 }
 
 //loop to create pattern
