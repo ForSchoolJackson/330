@@ -1,37 +1,13 @@
 //phyllo flower class
 class PhylloFlower {
     //construcor
-    constructor(n, centerX, centerY, divergence, c) {
-        n = 0;
+    constructor( centerX, centerY, divergence, c, n) {
+        this.n = 0;
         this.centerX = centerX;
         this.centerY = centerY;
         this.divergence = divergence;
         this.c = c;
-    }
-    //draw method
-    draw(ctx) {
-         //increase c and radius
-    c += 0.01;
-    radius += 0.01
-
-    // each frame draw a new dot
-    let a = n * utils.dtr(divergence); //angle
-    let r = c * Math.sqrt(n); //radius
-
-    // calculate the `x` and `y`
-    let x = r * Math.cos(a) + canvasWidth / 2;
-    let y = r * Math.sin(a) + canvasHeight / 2;
-
-    let color = `hsl(${n / 5 % 361},100%,50%)`;
-    utils.drawCircle(ctx, x, y, radius, color);
-
-    n++;
-
-    //loop back through
-    if (n > 1150) {
-        restartLoop();
-    }
-
+        this.radius = 2;
     }
     // calculate degrees
     dtr(degrees) {
@@ -47,7 +23,31 @@ class PhylloFlower {
         ctx.fill();
         ctx.restore();
     }
+    //restart loop
+    restartLoop() {
+        // Fill the entire canvas with black color
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+        //reset variables
+        this.n = 0;
+    }
+    //draw method
+    draw(ctx) {
+        // each frame draw a new dot
+        let a = this.n * this.dtr(this.divergence); //angle
+        let r = this.c * Math.sqrt(this.n); //radius
+
+        // calculate the `x` and `y`
+        this.x = r * Math.cos(a) + this.centerX;
+        this.y = r * Math.sin(a) + this.centerY;
+
+        let color = `hsl(${this.n / 5 % 361},100%,50%)`;
+        this.drawCircle(ctx, this.x, this.y, 1, color);
+
+        this.n++;
+
+    }
 }
 
 //globals
@@ -65,54 +65,19 @@ function init() {
     canvas.height = canvasHeight;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-     loop();
+    loop();
 }
 
 //loop to create pattern
 function loop() {
     setTimeout(loop, 1000 / fps);
 
-    sprites.push(new PhylloFlower(0,200, 200, 137.5, 4));
-    sprites.push(new PhylloFlower(0,450, 200, 137.5, 3))
-
+    sprites.push(new PhylloFlower(200, 200, 137.5, 4));
+    sprites.push(new PhylloFlower(450, 200, 137.1, 3))
+    
     for (let sprite of sprites) {
-        sprite.draw();
+        sprite.draw(ctx);
     }
-
-
-}
-
-//canvas click event (draw flower)
-const canvasClicked = (e) => {
-    //find mouseX and mouseY
-    let rect = e.target.getBoundingClientRect();
-    let mouseX = e.clientX - rect.x;
-    let mouseY = e.clientY - rect.y;
-
-    for (let i = 0; i < 40; i++) {
-        let aFlower = i * utils.dtr(137.1)
-        let rFlower = 2 * Math.sqrt(i);
-
-        //get X and Y
-        let x = rFlower * Math.cos(aFlower) + mouseX;
-        let y = rFlower * Math.sin(aFlower) + mouseY;
-
-        //draw the circles
-        let color = `hsl(${i % 200},100%,50%)`;
-        utils.drawCircle(ctx, x, y, 1, color);
-    }
-
-}
-
-const restartLoop = () => {
-    // Fill the entire canvas with black color
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    //reset variables
-    n = 1;
-    c = 2;
-    radius = 2;
 
 
 }
@@ -120,9 +85,8 @@ const restartLoop = () => {
 //restart button
 document.querySelector("#btn-restart").onclick = (e) => {
 
-    restartLoop();
+    for (let sprite of sprites) {
+        sprite.restartLoop();
+    }
 
 }
-
-//onclick event
-canvas.onclick = canvasClicked;
