@@ -74,11 +74,22 @@ function loop() {
 
     sprites.push(new PhylloFlower(200, 200, 137.5, 4));
     sprites.push(new PhylloFlower(450, 200, 137.1, 3))
-    
+
     for (let sprite of sprites) {
         sprite.draw(ctx);
     }
 
+
+}
+
+//canvas click event (draw flower)
+const canvasClicked = (e) => {
+    //find mouseX and mouseY
+    let rect = e.target.getBoundingClientRect();
+    let mouseX = e.clientX - rect.x;
+    let mouseY = e.clientY - rect.y;
+
+    sprites.push(new PhylloFlower(mouseX, mouseY, 137.3, 2))
 
 }
 
@@ -89,4 +100,10 @@ document.querySelector("#btn-restart").onclick = (e) => {
         sprite.restartLoop();
     }
 
+    //remove clicked sprites
+    sprites = [];
+
 }
+
+//onclick event
+canvas.onclick = canvasClicked;
