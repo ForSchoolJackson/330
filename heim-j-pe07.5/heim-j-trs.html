@@ -20,11 +20,19 @@
 
         let ctx = document.querySelector('canvas').getContext('2d');
         let rotation = 0;
+        let scale = 1;
+        let scalar = .01;
         loop();
 
         function loop() {
             requestAnimationFrame(loop);
             rotation += .05;
+            scale += scalar;
+
+            //prevent it frome getting too big or small
+            if(scale > 3 || scale < 1){
+                scalar *= -1;
+            }
 
             // background
             ctx.fillStyle = 'yellow';
@@ -36,45 +44,40 @@
             ctx.translate(500, 100)
             ctx.rotate(rotation);
             ctx.scale(1.2, 1.2);
-            ctx.strokeStyle = "red";
-            ctx.fillStyle = "red";
-            ctx.lineWidth = "5";
-            ctx.beginPath();
-            ctx.moveTo(0, -50);
-            ctx.lineTo(50, 50);
-            ctx.lineTo(-50, 50);
-            ctx.closePath();
-            ctx.stroke();
+            drawTriangle(ctx, 50, "red", 5)
             ctx.restore();
 
+            //draw another rotating triangle
+            ctx.save();
+            ctx.translate(400, 200)
+            ctx.rotate(-rotation);
+            drawTriangle(ctx, 20, "pink", 6)
+            ctx.restore();
+
+            //draw one more animated shape
+            ctx.save();
+            ctx.translate(100, 350);
+            ctx.rotate(-rotation/2);
+            ctx.scale(scale, scale);
+            drawSquare1(ctx, 0, 0, 50, 50, "cyan")
+            ctx.fill();
+            ctx.restore();
+
+            //make squares
             drawSquare2(ctx, 200, 100, 100, 100, rotation, "purple", 0.75)
             drawSquare2(ctx, 350, 100, 100, 100, -rotation, "purple", .5)
             drawSquare2(ctx, 500, 300, 100, 100, rotation, "purple", 1.25)
 
             // do some transformations?
-            ctx.save();
+            ctx.save();  //start
             ctx.translate(100, 0);
             ctx.rotate(rotation);
-            // ctx.scale(1.2, 1.2);
 
             // set a bunch of state attributes
             ctx.shadowOffsetX = 15;
             ctx.shadowOffsetY = 15;
             ctx.shadowColor = "rgba(153,50,204,.6)";
             ctx.shadowBlur = 5;
-
-
-            // // draw square with fillRect() convenience method
-            // ctx.fillStyle = "green";
-            // ctx.fillRect(100, 100, 100, 100);
-
-
-            // // draw square with rect()
-            // ctx.fillStyle = "blue";
-            // ctx.beginPath();
-            // ctx.rect(300, 100, 100, 100);
-            // ctx.closePath();
-            // ctx.fill();
 
             // draw squares with our helper function
             drawSquare1(ctx, 100, 0, 100, 100, "orange");
@@ -93,10 +96,11 @@
             ctx.fill()
             ctx.stroke();
 
-            ctx.restore();
+            ctx.restore();  //end
         }
 
 
+        //helper functions
         function drawSquare1(ctx, x, y, width, height, fillStyle) {
             ctx.save();
             ctx.fillStyle = fillStyle;
@@ -104,15 +108,29 @@
             ctx.restore();
         }
 
-        function drawSquare2(ctx, x, y, width, height, rotation, fillstyle, scale) {
+        function drawSquare2(ctx, x, y, width, height, rotation, fillStyle, scale) {
             ctx.save();
-            ctx.fillStyle = fillstyle;
+            ctx.fillStyle = fillStyle;
             ctx.translate(x, y);
             ctx.rotate(rotation);
             ctx.scale(scale, scale);
             ctx.fillRect(0 - width / 2, 0 - height / 2, width, height);
             ctx.restore();
         }
+
+        function drawTriangle(ctx, p, strokeStyle, lineWidth) {
+            ctx.save();
+            ctx.strokeStyle = strokeStyle;
+            ctx.lineWidth = lineWidth;
+            ctx.beginPath();
+            ctx.moveTo(0, -p);
+            ctx.lineTo(p, p);
+            ctx.lineTo(-p, p);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.restore();
+        }
+
     </script>
 </body>
 
