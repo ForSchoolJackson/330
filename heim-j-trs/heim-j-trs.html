@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Canvas Transforms Starter</title>
+    <style>
+        canvas {
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="640" height="480">
+        Get a real browser!
+    </canvas>
+    <script>
+        'use strict';
+
+        let ctx = document.querySelector('canvas').getContext('2d');
+        let rotation = 0;
+        let scale = 1;
+        let scalar = .01;
+        loop();
+
+        function loop() {
+            requestAnimationFrame(loop);
+            rotation += .05;
+            scale += scalar;
+
+            //prevent it frome getting too big or small
+            if(scale > 3 || scale < 1){
+                scalar *= -1;
+            }
+
+            // background
+            ctx.fillStyle = 'yellow';
+            ctx.fillRect(0, 0, 640, 480);
+
+
+            // draw a "better" triangle - why is this better? You'll see!
+            ctx.save();
+            ctx.translate(500, 100)
+            ctx.rotate(rotation);
+            ctx.scale(1.2, 1.2);
+            drawTriangle(ctx, 50, "red", 5)
+            ctx.restore();
+
+            //draw another rotating triangle
+            ctx.save();
+            ctx.translate(300, 300)
+            ctx.rotate(-rotation);
+            drawTriangle(ctx, 20, "pink", 6)
+            ctx.restore();
+
+            //draw one more animated shape
+            ctx.save();
+            ctx.translate(100, 350);
+            ctx.rotate(-rotation/2);
+            ctx.scale(scale, scale);
+            drawSquare1(ctx, 0, 0, 50, 50, "cyan")
+            ctx.fill();
+            ctx.restore();
+
+            //make squares
+            drawSquare2(ctx, 200, 100, 100, 100, rotation, "purple", 0.75)
+            drawSquare2(ctx, 350, 100, 100, 100, -rotation, "purple", .5)
+            drawSquare2(ctx, 500, 300, 100, 100, rotation, "purple", 1.25)
+
+            // do some transformations?
+            ctx.save();  //start
+            ctx.translate(100, 0);
+            ctx.rotate(rotation);
+
+            // set a bunch of state attributes
+            ctx.shadowOffsetX = 15;
+            ctx.shadowOffsetY = 15;
+            ctx.shadowColor = "rgba(153,50,204,.6)";
+            ctx.shadowBlur = 5;
+
+            // draw squares with our helper function
+            drawSquare1(ctx, 100, 0, 100, 100, "orange");
+            drawSquare1(ctx, 250, 0, 100, 100, "orange");
+            drawSquare1(ctx, 400, 0, 100, 100, "orange");
+
+            // draw a triangle
+            ctx.strokeStyle = "pink";
+            ctx.fillStyle = "green";
+            ctx.lineWidth = "5";
+            ctx.beginPath();
+            ctx.moveTo(500, 100);
+            ctx.lineTo(550, 200);
+            ctx.lineTo(450, 200);
+            ctx.closePath();
+            ctx.fill()
+            ctx.stroke();
+
+            ctx.restore();  //end
+        }
+
+
+        //helper functions
+        function drawSquare1(ctx, x, y, width, height, fillStyle) {
+            ctx.save();
+            ctx.fillStyle = fillStyle;
+            ctx.fillRect(x, y, width, height);
+            ctx.restore();
+        }
+
+        function drawSquare2(ctx, x, y, width, height, rotation, fillStyle, scale) {
+            ctx.save();
+            ctx.fillStyle = fillStyle;
+            ctx.translate(x, y);
+            ctx.rotate(rotation);
+            ctx.scale(scale, scale);
+            ctx.fillRect(0 - width / 2, 0 - height / 2, width, height);
+            ctx.restore();
+        }
+
+        function drawTriangle(ctx, p, strokeStyle, lineWidth) {
+            ctx.save();
+            ctx.strokeStyle = strokeStyle;
+            ctx.lineWidth = lineWidth;
+            ctx.beginPath();
+            ctx.moveTo(0, -p);
+            ctx.lineTo(p, p);
+            ctx.lineTo(-p, p);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.restore();
+        }
+
+    </script>
+</body>
+
+</html>
