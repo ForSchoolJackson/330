@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Audio Visualizer</title>
+  <link href="./styles/default-styles.css" type="text/css" rel="stylesheet" />
+  <link rel="shortcut icon" type="image/png" href="media/icons/note-icon.png"/>
+  <script src="./src/loader.js" type="module"></script>
+</head>
+
+<body>
+  <main>
+    <div id="container">
+      <canvas width="800" height="600"></canvas>
+      <div id="controls">
+        <section>
+          <label>Track:
+            <select id="select-track">
+              <option value="media/music/Nocturne.mp3" selected>Nocturne Remix</option>
+              <option value="media/music/Halloween Mountain King.mp3">Hall of the Mountain King Remix</option>
+              <option value="media/music/Toccata and Fugue.mp3">Toccatta and Fugue</option>
+            </select>
+          </label>
+
+          <button id="btn-play" data-playing="no"></button>
+          <button id="btn-fs">Full Screen</button>
+        </section>
+
+        <section>
+          Volume: <input type="range" id="slider-volume" min="0" max="2" value="1" step="0.01">
+          <span id="label-volume">???</span>
+        </section>
+
+        <section>
+          <span><input type="checkbox" id="cb-gradient"><label for="gradientCB">Show Gradient</label></span>
+          <span><input type="checkbox" id="cb-bars"><label for="barsCB">Show Bars</label></span>
+          <span><input type="checkbox" id="cb-circles"><label for="circlesCB">Show Circles</label></span>
+          <span><input type="checkbox" id="cb-noise"><label for="noiseCB">Show Noise</label></span>
+          <span><input type="checkbox" id="cb-invert"><label for="invertCB">Invert Colors</label></span>
+        </section>
+
+        <p>
+          <span><label for="cb-highshelf">Highshelf Filter (Treble)</label><input type="checkbox" id="cb-highshelf"></span>
+          <span><label for="cb-lowshelf">Lowshelf Filter (Bass)</label><input type="checkbox" id="cb-lowshelf"></span>
+          <span><label for="cb-distortion">Distortion</label><input type="checkbox" id="cb-distortion"></span>
+          <span>0 <input type="range" min="0" max="100" value="0" id="slider-distortion"> 100</span>
+        </p>
+
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
