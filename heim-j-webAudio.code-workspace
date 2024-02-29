@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "heim-j-webAudio",
+			"path": "heim-j-webAudio"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "heim-j-webAudio"
+	}
+}
