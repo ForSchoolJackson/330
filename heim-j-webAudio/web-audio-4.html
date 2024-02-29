@@ -165,7 +165,7 @@
             // I. set the initial state of the high shelf checkbox
             document.querySelector('#cb-highshelf').checked = highshelf; // `highshelf` is a boolean we will declare in a second
             document.querySelector('#cb-lowshelf').checked = lowshelf;
-            document.querySelector('#slider-distortion').checked = distortion;
+            document.querySelector('#cb-distortion').checked = distortion;
 
             // II. change the value of `highshelf` every time the high shelf checkbox changes state
             document.querySelector('#cb-highshelf').onchange = e => {
@@ -175,7 +175,12 @@
 
             document.querySelector('#cb-lowshelf').onchange = e => {
                 lowshelf = e.target.checked;
-                toggleLowshelf(); // turn on or turn off the filter, depending on the value of `highshelf`!
+                toggleLowshelf(); 
+            };
+
+            document.querySelector('#cb-distortion').onchange = e => {
+                distortion = e.target.checked;
+                toggleDistortion(); 
             };
 
             document.querySelector('#slider-distortion').value = distortionAmount;

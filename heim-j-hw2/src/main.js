@@ -9,7 +9,13 @@ const drawParams = {
   showBars: true,
   showCircles: true,
   showNoise: false,
-  showInvert: false
+  showInvert: false,
+  highshelf: false,
+  lowshelf: false,
+  distortion: false,
+
+  //set intial distortion
+  distortionAmount: 20
 }
 
 // 1 - here we are faking an enumeration
@@ -149,7 +155,32 @@ const setupUI = (canvasElement) => {
     }
 
   }
-  
+
+  //SOUND FILTERS
+  document.querySelector('#cb-highshelf').checked = drawParams.highshelf;
+  document.querySelector('#cb-lowshelf').checked = drawParams.lowshelf;
+  document.querySelector('#cb-distortion').checked = drawParams.distortion;
+
+  document.querySelector('#cb-highshelf').onchange = e => {
+    drawParams.highshelf = e.target.checked;
+    audio.toggleHighshelf(drawParams);
+  };
+
+  document.querySelector('#cb-lowshelf').onchange = e => {
+    drawParams.lowshelf = e.target.checked;
+    audio.toggleLowshelf(drawParams);
+  };
+
+  document.querySelector('#cb-distortion').onchange = e => {
+    drawParams.distortion = e.target.checked;
+    audio.toggleDistortion(drawParams);
+  };
+
+  document.querySelector('#slider-distortion').value = drawParams.distortionAmount;
+  document.querySelector('#slider-distortion').onchange = e => {
+    drawParams.distortionAmount = Number(e.target.value);
+    audio.toggleDistortion(drawParams);
+  };
 
 } // end setupUI
 
