@@ -86,7 +86,7 @@ const setVolume = (value) => {
 }
 
 //change highShelf
-function toggleHighshelf(params = {}) {
+const toggleHighshelf = (params = {}) => {
     if (params.highshelf) {
         highBiquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime); // we created the `biquadFilter` (i.e. "treble") node last time
         highBiquadFilter.gain.setValueAtTime(25, audioCtx.currentTime);
@@ -96,7 +96,7 @@ function toggleHighshelf(params = {}) {
 }
 
 //change lowShelf
-function toggleLowshelf(params = {}) {
+const toggleLowshelf = (params = {}) => {
     if (params.lowshelf) {
         lowBiquadFilter.frequency.setValueAtTime(1000, audioCtx.currentTime);
         lowBiquadFilter.gain.setValueAtTime(15, audioCtx.currentTime);
@@ -106,7 +106,7 @@ function toggleLowshelf(params = {}) {
 }
 
 //change distortion
-function toggleDistortion(params = {}) {
+const toggleDistortion = (params = {}) => {
     if (params.distortion) {
         distortionFilter.curve = null; // being paranoid and trying to trigger garbage collection
         distortionFilter.curve = makeDistortionCurve(params.distortionAmount);
@@ -116,7 +116,7 @@ function toggleDistortion(params = {}) {
 }
 
 //changes based on slider
-function makeDistortionCurve(amount = 20) {
+const makeDistortionCurve = (amount = 20) => {
     let n_samples = 256, curve = new Float32Array(n_samples);
     for (let i = 0; i < n_samples; ++i) {
         let x = i * 2 / n_samples - 1;
