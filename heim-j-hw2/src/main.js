@@ -13,6 +13,7 @@ const drawParams = {
   highshelf: false,
   lowshelf: false,
   distortion: false,
+  toggleWave: false,
 
   //set intial distortion
   distortionAmount: 20
@@ -182,12 +183,21 @@ const setupUI = (canvasElement) => {
     audio.toggleDistortion(drawParams);
   };
 
+  //TOGGLE VISUALIZATION
+  document.querySelector('#select-visualizer').onchange = e => {
+    if (e.target.value == "frequency") {
+      drawParams.toggleWave = false;
+    } else {
+      drawParams.toggleWave = true;
+    }
+  }
+
 } // end setupUI
 
 //DATA VISULIZER
 const loop = () => {
   canvas.draw(drawParams);
-  requestAnimationFrame(loop);
+  setTimeout(loop);
 
 }
 

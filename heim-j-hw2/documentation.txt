@@ -1,0 +1,13 @@
+Jackson Heim's audio visualizer notes:
+
+AUDIO AFFECTS
+The audio affect nodes I used were the highself filter, lowshelf filter, and distrotion.
+The highshelf and lowshelf filters can be turned on and off with the treble and bass checkboxes respectively.
+The distortion node can be turned on and off with the distortion checkbox and the level of distrotion can be changed with the slider.
+
+SPRITES
+
+APP DATA
+
+AESTHETICS
+

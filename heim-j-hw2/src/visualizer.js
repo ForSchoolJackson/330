@@ -17,10 +17,13 @@ const setupCanvas = (canvasElement, analyserNodeRef) => {
 
 const draw = (params = {}) => {
     // 1 - populate the audioData array with the frequency data from the analyserNode
-    // notice these arrays are passed "by reference" 
-    //analyserNode.getByteFrequesncyData(audioData);
-    // OR
-    analyserNode.getByteTimeDomainData(audioData); // waveform data
+    if(params.toggleWave){
+        analyserNode.getByteTimeDomainData(audioData); //waveform data
+        
+    }else{
+        analyserNode.getByteFrequencyData(audioData); //frequency data
+      
+    }
 
     // 2 - draw background
     ctx.save();
