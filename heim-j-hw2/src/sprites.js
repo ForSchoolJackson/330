@@ -2,10 +2,10 @@
 class FireWork {
     //construcor
     constructor(centerX, centerY, add) {
-        this.n = 20;
         this.centerX = centerX;
         this.centerY = centerY;
         this.add = add
+        this.n = 0;
         this.divergence = 137.1;
         this.c = 3;
         this.radius = 2;
@@ -49,23 +49,26 @@ class FireWork {
             add += audioData[i];
         }
         let average = add / (audioData.length + this.add);
-        this.n = Math.floor(1000 * (average / 200)+10);
+        this.n = Math.floor(1000 * (average / 200) + 10);
 
     }
 }
 
 //traingle class
-class Triangle{
+class Triangle {
     //constructor
-    constructor(centerX, centerY, add) {
+    constructor(x, y, add) {
+        this.x = x;
+        this.y = y;
+        this.add = add;
     }
 
     //draw the triangles
-    draw(){
+    draw(ctx) {
 
     }
     //rotate triangles with music
-    update(){
+    update(audioData) {
 
     }
 
