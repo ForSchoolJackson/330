@@ -2,6 +2,7 @@
 import * as utils from './utils.js';
 import * as audio from './audio.js';
 import * as canvas from './visualizer.js';
+import * as json from './load-json.js';
 
 //params object
 const drawParams = {
@@ -27,11 +28,13 @@ const DEFAULTS = Object.freeze({
 const init = () => {
   audio.setupWebaudio(DEFAULTS.sound1);
   console.log("init called");
-  console.log(`Testing utils.getRandomColor() import: ${utils.getRandomColor()}`);
+  //console.log(`Testing utils.getRandomColor() import: ${utils.getRandomColor()}`);
   let canvasElement = document.querySelector("canvas"); // hookup <canvas> element
   setupUI(canvasElement);
 
   canvas.setupCanvas(canvasElement, audio.analyserNode);
+
+  json.loadJson();
 
   loop();
 }

@@ -5,9 +5,19 @@ The audio affect nodes I used were the highself filter, lowshelf filter, and dis
 The highshelf and lowshelf filters can be turned on and off with the treble and bass checkboxes respectively.
 The distortion node can be turned on and off with the distortion checkbox and the level of distrotion can be changed with the slider.
 
+
 SPRITES
 
+
 APP DATA
+Used a json file to load in the app page title and the information at the top of the box. 
+The information inclued the title, the list of songs available, and instructions for how to use the app.
+
 
 AESTHETICS
+
+
+FAIR USE
+Used a music note icon as a favicom from https://icons8.com
+Got the copywrite music for free from https://www.chosic.com and https://pixabay.com/music
 
