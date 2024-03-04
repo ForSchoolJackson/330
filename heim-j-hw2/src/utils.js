@@ -20,6 +20,27 @@ const getLinearGradient = (ctx, startX, startY, endX, endY, colorStops) => {
   return lg;
 };
 
+const makeLine = (ctx, x, y, audioData, canvasWidth) => {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  for (let i of audioData) {
+    ctx.lineTo(x, y - i);
+    x += (canvasWidth / (audioData.length - 50));
+  }
+  ctx.stroke();
+  ctx.closePath();
+  ctx.restore();
+}
+
+const makeCircle = (ctx, x, y, percent, radius) => {
+  ctx.beginPath();
+  ctx.fillStyle = makeColor(255, 150, 240, .5 - percent / 5);
+  ctx.arc(x, y, radius * percent, 0, 2 * Math.PI, false);
+  ctx.fill();
+  ctx.closePath();
+
+}
+
 // https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
 const goFullscreen = (element) => {
   if (element.requestFullscreen) {
@@ -34,4 +55,4 @@ const goFullscreen = (element) => {
   // .. and do nothing if the method is not supported
 };
 
-export { makeColor, getRandomColor, getLinearGradient, goFullscreen };
+export { makeColor, getRandom, getRandomColor, getLinearGradient, goFullscreen, makeLine, makeCircle };

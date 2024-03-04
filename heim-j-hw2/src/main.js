@@ -6,11 +6,11 @@ import * as json from './load-json.js';
 
 //params object
 const drawParams = {
-  showGradient: true,
+  showLine: false,
   showBars: true,
-  showCircles: true,
-  showNoise: false,
+  showCircles: false,
   showInvert: false,
+  showFireworks: true,
   highshelf: false,
   lowshelf: false,
   distortion: false,
@@ -101,23 +101,21 @@ const setupUI = (canvasElement) => {
 
   //CHECKBOX EVENTS
   //reference from html
-  let gradCheck = document.querySelector("#cb-gradient")
+  let lineCheck = document.querySelector("#cb-lines")
+  let fireCheck = document.querySelector("#cb-fireworks")
   let barCheck = document.querySelector("#cb-bars")
   let circleCheck = document.querySelector("#cb-circles")
-  let noiseCheck = document.querySelector("#cb-noise")
   let invCheck = document.querySelector("#cb-invert")
 
   //start them checked
-  gradCheck.checked = true;
   barCheck.checked = true;
-  circleCheck.checked = true;
 
-  //gradient
-  gradCheck.onclick = () => {
-    if (gradCheck.checked) {
-      drawParams.showGradient = true;
+  //line
+  lineCheck.onclick = () => {
+    if (lineCheck.checked) {
+      drawParams.showLine = true;
     } else {
-      drawParams.showGradient = false;
+      drawParams.showLine = false;
     }
   }
 
@@ -140,16 +138,6 @@ const setupUI = (canvasElement) => {
 
   }
 
-  //noise
-  noiseCheck.onclick = () => {
-    if (noiseCheck.checked) {
-      drawParams.showNoise = true;
-    } else {
-      drawParams.showNoise = false;
-    }
-
-  }
-
   //invert
   invCheck.onclick = () => {
     if (invCheck.checked) {
@@ -159,6 +147,17 @@ const setupUI = (canvasElement) => {
     }
 
   }
+
+  //fireworks
+  fireCheck.onclick = () => {
+    if (fireCheck.checked) {
+      drawParams.showFireworks = true;
+    } else {
+      drawParams.showFireworks = false;
+    }
+
+  }
+
 
   //SOUND FILTERS
   document.querySelector('#cb-highshelf').checked = drawParams.highshelf;

@@ -3,7 +3,7 @@ const loadJson = () => {
     const xhr = new XMLHttpRequest();
     xhr.onload = (e) => {
         //console.log(`In onload - HTTP Status Code = ${e.target.status}`);
-  
+
         let json;
         try {
             json = JSON.parse(e.target.responseText)
@@ -16,7 +16,7 @@ const loadJson = () => {
 
         let html = "";
 
-        html += `<h3>${obj.title = obj.title ? obj.title : "No title found"}</h3>`;
+        html += `<h2>${obj.title = obj.title ? obj.title : "No title found"}</h2>`;
         html += `<ol>${obj["songlist"].map(w => `<li>${w}</li>`).join("")}</ol>`;
         html += `<p>${obj.instructions}</p>`
 
@@ -29,7 +29,7 @@ const loadJson = () => {
     xhr.onerror = e => console.log(`In onerror - HTTP Status Code = ${e.target.status}`)
     xhr.open("GET", url)
     xhr.send();
-  
-  }
 
-  export { loadJson };
+}
+
+export { loadJson };

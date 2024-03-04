@@ -1,28 +1,35 @@
 import * as utils from './utils.js';
+import * as sprite from './sprites.js';
 
-let ctx, canvasWidth, canvasHeight, gradient, analyserNode, audioData;
+let ctx, canvasWidth, canvasHeight, analyserNode, audioData;
+let fireworks = [];
 
 const setupCanvas = (canvasElement, analyserNodeRef) => {
     // create drawing context
     ctx = canvasElement.getContext("2d");
     canvasWidth = canvasElement.width;
     canvasHeight = canvasElement.height;
-    // create a gradient that runs top to bottom
-    gradient = utils.getLinearGradient(ctx, 0, 0, 0, canvasHeight, [{ percent: .1, color: "cyan" }, { percent: .5, color: "yellow" }, { percent: 1, color: "magenta" }]);
     // keep a reference to the analyser node
     analyserNode = analyserNodeRef;
     // this is the array where the analyser data will be stored
     audioData = new Uint8Array(analyserNode.fftSize / 2);
+    
+    fireworks.push(new sprite.FireWork(100, 100, -200))
+    fireworks.push(new sprite.FireWork(200, 340, 200))
+    fireworks.push(new sprite.FireWork(450, 200, 400))
+    fireworks.push(new sprite.FireWork(500, 100, 100))
+    fireworks.push(new sprite.FireWork(600, 400, 900))
 }
 
 const draw = (params = {}) => {
     // 1 - populate the audioData array with the frequency data from the analyserNode
-    if(params.toggleWave){
+    if (params.toggleWave) {
         analyserNode.getByteTimeDomainData(audioData); //waveform data
-        
-    }else{
+        // Initialize audioData with default values
+
+    } else {
         analyserNode.getByteFrequencyData(audioData); //frequency data
-      
+
     }
 
     // 2 - draw background
@@ -32,69 +39,79 @@ const draw = (params = {}) => {
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.restore();
 
-    // 3 - draw gradient
-    if (params.showGradient) {
-
+    //draw line
+    if (params.showLine) {
+        //line
         ctx.save();
-        ctx.fillStyle = gradient;
-        ctx.globalAlpha = .3;
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-        ctx.restore;
+        ctx.lineWidth = 3;
+        let x = -(canvasWidth / audioData.length);
+        let num = 0
+
+        //make the lines
+        for (let i = 0; i < 20; i++) {
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "rgb(199, 199, 199)";
+            let y = num;
+            num += 40
+            utils.makeLine(ctx, x, y, audioData, canvasWidth)
+        }
+
     }
 
-    // 4 - draw bars
+
+    //draw bars
     if (params.showBars) {
-        let barSpacing = 4;
-        let margin = 5;
-        let screenWidthForBars = canvasWidth - (audioData.length * barSpacing) - margin * 2;
-        let barWidth = screenWidthForBars / audioData.length;
-        let barHeight = 200;
-        let topSpacing = 100;
+
+        let margin = 2;
+        let screenWidthForBars = (canvasWidth - (audioData.length) * margin);
+        let barWidth = (screenWidthForBars / audioData.length) + 5;
+        let topSpacing = 330;
 
         ctx.save();
-        ctx.fillStyle = `rgb(255, 255, 255, 0.5)`
         //loop througbh data
         for (let i = 0; i < audioData.length; i++) {
-            ctx.fillRect(margin + i * (barWidth + barSpacing), topSpacing + 256 - audioData[i], barWidth, barHeight);
-            ctx.strokeRect(margin + i * (barWidth + barSpacing), topSpacing + 256 - audioData[i], barWidth, barHeight);
+            let barX = margin + i * (barWidth + margin)
+            let barHeight = Math.max(audioData[i] + 20, 0);
+
+            let color = Math.round(255 * (i / (audioData.length - 50)));
+
+            ctx.fillStyle = `rgb(${color}, 10, 255, 1)`;
+            ctx.fillRect(barX, topSpacing + 256 - audioData[i], barWidth, barHeight);
         }
         ctx.restore();
     }
 
-    // 5 - draw circles
+    //draw circles
     if (params.showCircles) {
-        let maxRadius = canvasHeight / 4;
+        let maxRadius = canvasHeight / 20;
         ctx.save();
         ctx.globalAlpha = 0.5;
-        for (let i = 0; i < audioData.length; i++) {
 
+        let x = utils.getRandom(40, canvasWidth - 40);
+        let y = utils.getRandom(40, canvasHeight - 40);
+
+        for (let i = 0; i < audioData.length; i++) {
             let percent = audioData[i] / 255;
             let circleRadius = percent * maxRadius;
 
-            //redish circls
-            ctx.beginPath();
-            ctx.fillStyle = utils.makeColor(255, 111, 111, .34 - percent / 3);
-            ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius, 0, 2 * Math.PI, false);
-            ctx.fill();
-            ctx.closePath();
-
-            //bluish circles
-            ctx.beginPath();
-            ctx.fillStyle = utils.makeColor(0, 0, 225, .10 - percent / 10);
-            ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius * 1.5, 0, 2 * Math.PI, false);
-            ctx.fill();
-            ctx.closePath();
-
-            //yellowish circles
-            ctx.beginPath();
-            ctx.fillStyle = utils.makeColor(200, 200, 0, .5 - percent / 5);
-            ctx.arc(canvasWidth / 2, canvasHeight / 2, circleRadius * .5, 0, 2 * Math.PI, false);
-            ctx.fill();
-            ctx.closePath();
+            utils.makeCircle(ctx, x, y, percent, circleRadius)
 
         }
-        ctx.restore();
+
     }
+
+    //make fireworks
+    if (params.showFireworks) {
+
+        for (let s of fireworks) {
+            s.draw(ctx);
+
+            s.update(audioData)
+
+        }
+
+    }
+
 
     let imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
     let data = imageData.data;
@@ -103,14 +120,6 @@ const draw = (params = {}) => {
     // B) Iterate through each pixel, stepping 4 elements at a time (which is the RGBA for 1 pixel)
     for (let i = 0; i < length; i++) {
         // C) randomly change every 20th pixel to red
-        if (params.showNoise && Math.random() < .05) {
-            // data[i] is the red channel
-            // data[i+1] is the green channel
-            // data[i+2] is the blue channel
-            // data[i+3] is the alpha channel
-            data[i] = data[i + 1] = data[i + 2] = 0 // zero out the red and green and blue channels
-            data[i] = 255 // make the red channel 100% red
-        } // end if
 
         //invert
         if (params.showInvert) {
@@ -123,20 +132,8 @@ const draw = (params = {}) => {
 
     } // end for
 
-    //emboss
-    if (params.showEmboss) {
-        for (let i = 0; i < length; i++) {
-            if (i % 4 == 3) continue; //skip alpha chnnel
-            data[i] = 127 + 2 * data[i] - data[i + 4] - data[i + width * 4];
-        }
-    }
-
     // D) copy image data back to canvas
     ctx.putImageData(imageData, 0, 0);
-
-
-
-
 
 }
 
