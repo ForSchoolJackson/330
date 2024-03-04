@@ -14,7 +14,7 @@ class FireWork {
     dtr(degrees) {
         return degrees * (Math.PI / 180);
     }
-    //make circle
+    //make the circles
     drawCircle(ctx, x, y, radius, color) {
         ctx.save();
         ctx.fillStyle = color;
@@ -24,11 +24,11 @@ class FireWork {
         ctx.fill();
         ctx.restore();
     }
-    //draw method
+    //draw fireworks
     draw(ctx) {
 
         for (let i = 0; i < this.n; i++) {
-            let aFlower = i * 137.1 * (Math.PI / 180)
+            let aFlower = i * this.dtr(137.1)
             let rFlower = 2 * Math.sqrt(i);
 
             //get X and Y
@@ -42,25 +42,29 @@ class FireWork {
         }
 
     }
+    //add more dots with music
     update(audioData) {
         let add = 0
         for (let i = 0; i < audioData.length; i++) {
             add += audioData[i];
         }
         let average = add / (audioData.length + this.add);
-        this.n = Math.floor(1000 * (average / 200));
+        this.n = Math.floor(1000 * (average / 200)+10);
 
     }
 }
 
 //traingle class
 class Triangle{
+    //constructor
     constructor(centerX, centerY, add) {
     }
 
+    //draw the triangles
     draw(){
 
     }
+    //rotate triangles with music
     update(){
 
     }

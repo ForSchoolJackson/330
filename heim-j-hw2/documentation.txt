@@ -7,7 +7,8 @@ The distortion node can be turned on and off with the distortion checkbox and th
 
 
 SPRITES
-
+Used the phylloclassy sprite as a basis for making the fireworks that grow and fade with the music.
+Made a sprite for triangles that rotate with the music.
 
 APP DATA
 Used a json file to load in the app page title and the information at the top of the box. 

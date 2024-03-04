@@ -14,7 +14,8 @@ const setupCanvas = (canvasElement, analyserNodeRef) => {
     // this is the array where the analyser data will be stored
     audioData = new Uint8Array(analyserNode.fftSize / 2);
     
-    fireworks.push(new sprite.FireWork(100, 100, -200))
+    fireworks.push(new sprite.FireWork(100, 100, -100))
+    fireworks.push(new sprite.FireWork(240, 140, -60))
     fireworks.push(new sprite.FireWork(200, 340, 200))
     fireworks.push(new sprite.FireWork(450, 200, 400))
     fireworks.push(new sprite.FireWork(500, 100, 100))
