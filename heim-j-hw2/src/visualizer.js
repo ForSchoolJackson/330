@@ -3,6 +3,7 @@ import * as sprite from './sprites.js';
 
 let ctx, canvasWidth, canvasHeight, analyserNode, audioData;
 let fireworks = [];
+let triangles = [];
 
 const setupCanvas = (canvasElement, analyserNodeRef) => {
     // create drawing context
@@ -14,12 +15,16 @@ const setupCanvas = (canvasElement, analyserNodeRef) => {
     // this is the array where the analyser data will be stored
     audioData = new Uint8Array(analyserNode.fftSize / 2);
     
+    //push fireworks into the array
     fireworks.push(new sprite.FireWork(100, 100, -100))
     fireworks.push(new sprite.FireWork(240, 140, -60))
     fireworks.push(new sprite.FireWork(200, 340, 200))
     fireworks.push(new sprite.FireWork(450, 200, 400))
     fireworks.push(new sprite.FireWork(500, 100, 100))
-    fireworks.push(new sprite.FireWork(600, 400, 900))
+    fireworks.push(new sprite.FireWork(600, 300, 900))
+
+    //push trianlges into the array
+    triangles.push(new sprite.Triangle(200,200, 20))
 }
 
 const draw = (params = {}) => {
@@ -36,7 +41,7 @@ const draw = (params = {}) => {
     // 2 - draw background
     ctx.save();
     ctx.fillStyle = "black";
-    ctx.globalAlpha = .1;
+    ctx.globalAlpha = .5;
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     ctx.restore();
 
@@ -66,7 +71,7 @@ const draw = (params = {}) => {
         let margin = 2;
         let screenWidthForBars = (canvasWidth - (audioData.length) * margin);
         let barWidth = (screenWidthForBars / audioData.length) + 5;
-        let topSpacing = 330;
+        let topSpacing = 275;
 
         ctx.save();
         //loop througbh data
@@ -101,16 +106,25 @@ const draw = (params = {}) => {
 
     }
 
-    //make fireworks
+    //make fireworks from class
     if (params.showFireworks) {
 
-        for (let s of fireworks) {
-            s.draw(ctx);
+        for (let f of fireworks) {
+            f.draw(ctx);
 
-            s.update(audioData)
+            f.update(audioData)
 
         }
 
+    }
+
+    //,ake spinning triangles from class
+    if(params.showTriangles){
+        for(let t of triangles){
+            t.draw(ctx);
+
+            t.update(audioData);
+        }
     }
 
 

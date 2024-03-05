@@ -11,6 +11,7 @@ const drawParams = {
   showCircles: false,
   showInvert: false,
   showFireworks: true,
+  showTriangles: true,
   highshelf: false,
   lowshelf: false,
   distortion: false,
@@ -103,6 +104,7 @@ const setupUI = (canvasElement) => {
   //reference from html
   let lineCheck = document.querySelector("#cb-lines")
   let fireCheck = document.querySelector("#cb-fireworks")
+  let triCheck = document.querySelector("#cb-triangles")
   let barCheck = document.querySelector("#cb-bars")
   let circleCheck = document.querySelector("#cb-circles")
   let invCheck = document.querySelector("#cb-invert")
@@ -155,6 +157,16 @@ const setupUI = (canvasElement) => {
       drawParams.showFireworks = true;
     } else {
       drawParams.showFireworks = false;
+    }
+
+  }
+
+  //triangles
+  triCheck.onclick = () => {
+    if (triCheck.checked) {
+      drawParams.showTriangles = true;
+    } else {
+      drawParams.showTriangles = false;
     }
 
   }

@@ -34,7 +34,7 @@ const makeLine = (ctx, x, y, audioData, canvasWidth) => {
 
 const makeCircle = (ctx, x, y, percent, radius) => {
   ctx.beginPath();
-  ctx.fillStyle = makeColor(255, 150, 240, .5 - percent / 5);
+  ctx.fillStyle = makeColor(105, 4, 58, .5 - percent / 5);
   ctx.arc(x, y, radius * percent, 0, 2 * Math.PI, false);
   ctx.fill();
   ctx.closePath();

@@ -62,9 +62,21 @@ class Triangle {
         this.y = y;
         this.add = add;
     }
-
+    drawTriangle(ctx, p, color) {
+        ctx.save();
+        ctx.fillColor = color;
+        ctx.beginPath();
+        ctx.moveTo(0, -p);
+        ctx.lineTo(p, p);
+        ctx.lineTo(-p, p);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+    }
     //draw the triangles
     draw(ctx) {
+        this.drawTriangle(ctx, 20, "red" )
+        
 
     }
     //rotate triangles with music
