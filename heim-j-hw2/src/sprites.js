@@ -76,8 +76,7 @@ class Triangle {
     //draw the triangles
     draw(ctx) {
         this.drawTriangle(ctx, 20, "red" )
-        
-
+    
     }
     //rotate triangles with music
     update(audioData) {

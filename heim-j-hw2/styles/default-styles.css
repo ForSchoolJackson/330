@@ -5,7 +5,7 @@ body {
 
 #container {
   display: flex;
-  font-size: 1.3rem;
+  font-size: 1.3vw;
   text-align: center;
 }
 
@@ -34,6 +34,7 @@ body {
 #output p{
   text-align: left;
   margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 #output ol{
@@ -84,5 +85,5 @@ button[data-playing="no"]:after {
 
 #select-visualizer {
   display: block;
-  margin-left: 1rem;
+  margin: 1rem;
 }
