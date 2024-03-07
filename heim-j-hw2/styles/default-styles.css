@@ -3,9 +3,10 @@ body {
   font-family: tahoma, verdana, sans serif;
 }
 
+
 #container {
   display: flex;
-  font-size: 1.3vw;
+  font-size: 1.2vw;
   text-align: center;
 }
 
@@ -20,6 +21,31 @@ body {
   margin-right: 1rem;
 }
 
+button{
+  background-color: #3e3e3e;
+  border: none;
+  color: white;
+  padding:  10px 0px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 7px;
+}
+
+button:hover {
+  background-color: #555; 
+}
+
+select{
+  background-color: #3e3e3e;
+  border: none;
+  color: white;
+  padding:  10px 5px;
+  text-align: center;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
 #checkboxes{
   display: flex;
 }
@@ -29,7 +55,6 @@ body {
   margin-left: 1rem;
   display: block;
 }
-
 
 #output p{
   text-align: left;

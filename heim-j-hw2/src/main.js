@@ -112,6 +112,7 @@ const setupUI = (canvasElement) => {
   //start them checked
   barCheck.checked = true;
   fireCheck.checked = true;
+  triCheck.checked = true;
 
   //line
   lineCheck.onclick = () => {

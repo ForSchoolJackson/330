@@ -24,7 +24,15 @@ const setupCanvas = (canvasElement, analyserNodeRef) => {
     fireworks.push(new sprite.FireWork(600, 300, 900))
 
     //push trianlges into the array
-    triangles.push(new sprite.Triangle(200,200, 20))
+    triangles.push(new sprite.Triangle(770, 20,27))
+    triangles.push(new sprite.Triangle(730, 30, 20))
+    triangles.push(new sprite.Triangle(770, 60, 20))
+
+    triangles.push(new sprite.Triangle(30, 530, 27))
+    triangles.push(new sprite.Triangle(40, 490, 20))
+    triangles.push(new sprite.Triangle(70, 520, 20))
+
+    console.log(triangles)
 }
 
 const draw = (params = {}) => {
@@ -118,7 +126,7 @@ const draw = (params = {}) => {
 
     }
 
-    //,ake spinning triangles from class
+    //make spinning triangles from class
     if(params.showTriangles){
         for(let t of triangles){
             t.draw(ctx);
