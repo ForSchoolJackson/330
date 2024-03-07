@@ -212,7 +212,8 @@ const setupUI = (canvasElement) => {
 
 //DATA VISULIZER
 const loop = () => {
-  canvas.draw(drawParams);
+  let fps = 60;
+  canvas.draw(drawParams, fps);
   setTimeout(loop);
 
 }
