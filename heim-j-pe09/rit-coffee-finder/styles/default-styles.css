@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.marker {
+    background-image: url('../images/coffee-icon.png');
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.mapboxgl-popup {
+    max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#controls {
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    left: 20px;
+    width: 130px;
+    height: 120px;
+    background-color: lightgray;
+    border: 1px solid bleck;
+    height: auto;
+}
+
+#controls button {
+    font-size: .9em;
+    width: 100%;
+    background-color: hsl(195, 100%, 50%);
+}
+
+#controls button:hover {
+    color: #777;
+    background-color: hsl(195, 100%, 60%);
+}
